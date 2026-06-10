@@ -48,7 +48,7 @@
   @media(max-width:860px){.nav-links a:not(.nav-cta):not(.lang-btn){display:none}}
 
   header.hero{position:relative;padding:170px 0 90px;overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
   @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:40px}}
   .hero .eyebrow{opacity:0;animation:rise .8s .1s forwards}
   .hero h1{font-size:clamp(2.9rem,6.2vw,5rem);margin:22px 0 0;opacity:0;animation:rise .9s .22s forwards;line-height:1.18}
@@ -93,6 +93,13 @@
   .strip-item .n{font-family:'Frank Ruhl Libre';font-size:1.9rem;font-weight:700;color:var(--gold-bright);line-height:1;direction:ltr}
   .strip-item .l{font-size:.88rem;color:var(--muted);max-width:15ch;line-height:1.4}
 
+  .demo-frame{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid var(--line-purple);background:radial-gradient(120% 120% at 50% 0,rgba(74,46,201,.4),rgba(10,8,24,.97));box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 60px rgba(124,92,255,.12);display:grid;place-items:center;cursor:pointer}
+  .demo-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,rgba(124,92,255,.2),transparent 62%);pointer-events:none}
+  .demo-play{position:relative;z-index:2;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;border:0;cursor:pointer;background:linear-gradient(120deg,var(--gold-bright),var(--gold) 70%,var(--gold-deep));box-shadow:0 12px 40px rgba(230,192,104,.5);transition:transform .25s}
+  .demo-frame:hover .demo-play{transform:scale(1.08)}
+  .demo-play svg{width:32px;height:32px;fill:var(--midnight);margin-inline-start:5px}
+  .demo-cap{position:absolute;bottom:16px;inset-inline:0;text-align:center;font-family:'Heebo';font-size:.84rem;font-weight:600;color:var(--muted);z-index:2}
+  .demo-frame video,.demo-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
   section{position:relative;padding:108px 0}
   .sec-head{max-width:44em;margin-bottom:56px}
   .sec-head h2{font-size:clamp(2.1rem,4.2vw,3.3rem);margin:18px 0 0;line-height:1.22}
@@ -342,7 +349,7 @@
     <div>
       <div class="eyebrow">מחלקת השיווק שלך, מבוססת AI</div>
       <h1 class="display">תשעה סוכנים.<br><span class="it">קול מותג</span> <span class="grad">אחד.</span></h1>
-      <p class="lede">MarketThing הוא צוות שיווק שלם של מומחי AI - אסטרטגית רילסים, מספרת מכירות, אנליסט, ספרנית ועוד. הם <b>מתכננים, מייצרים, מפרסמים ומשתפרים כל שבוע</b> - ונשמעים בדיוק כמוך.</p>
+      <p class="lede">MarketThing הוא צוות שיווק שלם של מומחי AI - אסטרטגית רילסים, כותבת מכירות, אנליסט ביצועים, ספרנית ידע ועוד. הם <b>מתכננים, מייצרים, מפרסמים ומשתפרים כל שבוע</b> - ונשמעים בדיוק כמוך.</p>
       <div class="hero-cta">
         <a href="#pricing" class="btn-primary">גייסי את הצוות</a>
         <a href="#team" class="btn-ghost">הכירי את התשעה</a>
@@ -379,12 +386,29 @@
   </div>
 </header>
 
+<section id="demo">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 38px">
+      <div class="eyebrow" style="display:block">ראו את זה עובד</div>
+      <h2 class="display">60 שניות עד <span class="it">"אה - זה מה שזה עושה"</span></h2>
+      <p style="margin-inline:auto">בלי ז'רגון. תראו איך הצוות לוקח רעיון אחד והופך אותו לשבוע של תוכן - בשידור חי.</p>
+    </div>
+    <!-- להוספת הסרטון: החליפו את כפתור .demo-play ואת .demo-cap למטה ב-
+         <video src="demo.mp4" controls playsinline poster="poster.jpg"></video>
+         או ב-iframe של יוטיוב / לום -->
+    <div class="demo-frame reveal">
+      <button class="demo-play" aria-label="נגן"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <span class="demo-cap">דמו · 60 שניות</span>
+    </div>
+  </div>
+</section>
+
 <section id="team">
   <div class="container">
     <div class="sec-head reveal">
       <div class="eyebrow">הצוות</div>
       <h2 class="display">צוות שכבר <span class="it">מכיר את המותג שלך</span></h2>
-      <p>כל סוכן קורא את קול המותג שלך, את הכאבים של הקהל, ואת מה שאסור לומר - לפני מילה אחת. לכל אחד תפקיד אחד, והוא עושה אותו כמו מומחה, לא כמו צ׳אטבוט כללי.</p>
+      <p>כל סוכן מכיר את שפת המותג שלך, את הכאבים של הקהל, ואת מה שאסור לומר - לפני מילה אחת. לכל אחד תפקיד אחד, והוא עושה אותו כמו מומחה, לא כמו צ׳אטבוט כללי.</p>
     </div>
     <div class="orchestrator reveal">
       <div class="orch-badge">M</div>
@@ -443,7 +467,7 @@
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M14 7h7v7"/></svg></div><h4>גלגל התוצאות</h4><p>הרילסים והפוסטים הכי מצליחים שלך נשאבים בחזרה אוטומטית כשיעורים. מה שעבד אתמול מעצב את מה שהצוות כותב מחר.</p></div>
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M7 3h10"/></svg></div><h4>A/B מבוסס השערה</h4><p>אבי לא מייצר "חמש גרסאות דומות". כל ניסוי משנה משתנה אחד כדי לענות על שאלה אחת, וניל מדווח מי ניצח.</p></div>
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/><path d="M9 21h6"/></svg></div><h4>תדריכים יזומים</h4><p>פעם בשבוע מארק עובר על הכל ובא אלייך - מיוזמתו - עם תדריך והצעות קונקרטיות שמחכות בתיבה.</p></div>
-      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><h4>יסודות שאפשר לערוך</h4><p>קול המותג, הקהל וכללי ה"לא לומר" שלך חיים בעורך שבבעלותך. תשני עיקרון אחד וכל הצוות מציית לו כבר בתור הבא.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><h4>יסודות שאפשר לערוך</h4><p>שפת המותג, הקהל וכללי ה"לא לומר" שלך חיים בעורך שבבעלותך. תשני עיקרון אחד וכל הצוות מציית לו כבר בתור הבא.</p></div>
     </div>
   </div>
 </section>
@@ -547,7 +571,7 @@
     <div class="tgrid">
       <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>הייתי מאבדת יום שלם בשבוע על תוכן. עכשיו אני מספרת למארק מה קרה לי בשבוע וכל הצוות הופך את זה לרילסים, סטוריז ומאמר. זה באמת נשמע כמוני.</p><div class="who"><div class="av">מ</div><div><div class="nm">מיכל ל.</div><div class="rl">יועצת משכנתאות · מותג סולו</div></div></div></div>
       <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>לולאת הלמידה היא החלק שאין לאף אחד אחר. תיקנתי טיוטה אחת ושבוע אחרי כל הצוות כבר כתב בדיוק כמו שרציתי. זה מצטבר.</p><div class="who"><div class="av">ר</div><div><div class="nm">רונן ק.</div><div class="rl">מאמן פיננסי</div></div></div></div>
-      <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>קיבלתי הצעה של 6,000 ש"ח בחודש מסוכנות שלא הכירה את הקול שלי. זה חלק קטן מזה, זה אף פעם לא ישן, ואני מאשרת הכל לפני שזה עולה.</p><div class="who"><div class="av">ד</div><div><div class="nm">דנה ש.</div><div class="rl">מנהלת חשבונות ויוצרת קורסים</div></div></div></div>
+      <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>קיבלתי הצעה של 6,000 ש"ח בחודש מסוכנות שלא הכירה את הסגנון שלי. זה חלק קטן מזה, זה אף פעם לא ישן, ואני מאשרת הכל לפני שזה עולה.</p><div class="who"><div class="av">ד</div><div><div class="nm">דנה ש.</div><div class="rl">מנהלת חשבונות ויוצרת קורסים</div></div></div></div>
     </div>
   </div>
 </section>
@@ -592,9 +616,9 @@
     <div class="faq-wrap">
       <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>אני צריכה להבין בשיווק או ב-AI כדי להשתמש בזה?</span><span class="pl">+</span></div><div class="faq-a"><div>לא. את מדברת עם מארק כמו שהיית מדברת עם מנהל שיווק - בשפה פשוטה, בעברית. הוא מבין מי בצוות צריך לעשות את העבודה ומעביר את זה הלאה. אין צורך בשום הנדסת פרומפטים.</div></div></div>
       <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>על מה בדיוק אני משלמת מעבר ל-199 דולר?</span><span class="pl">+</span></div><div class="faq-a"><div>על עלות השימוש - כמות הטקסט שה-AI קורא וכותב כדי לעשות את העבודה שלך, נמדדת בטוקנים. היא מחויבת בעלות הספק בלי תוספות נסתרות, נמדדת בזמן אמת לכל סוכן, ורוב המותגים הסולו מוציאים בערך 30 עד 90 דולר בחודש מעבר למנוי.</div></div></div>
-      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>זה באמת יישמע כמוני, או כמו רובוט?</span><span class="pl">+</span></div><div class="faq-a"><div>כמוך. לפני מילה אחת, כל סוכן קורא את קול המותג שלך, את הקהל, ואת כללי ה"לא לומר". ואז הוא לומד מכל עריכה שלך, אז ההתאמה רק מתהדקת עם הזמן.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>זה באמת יישמע כמוני, או כמו רובוט?</span><span class="pl">+</span></div><div class="faq-a"><div>כמוך. לפני מילה אחת, כל סוכן מכיר את שפת המותג שלך, את הקהל, ואת כללי ה"לא לומר". ואז הוא לומד מכל עריכה שלך, אז ההתאמה רק מתהדקת עם הזמן.</div></div></div>
       <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>זה מפרסם לרשתות שלי לבד?</span><span class="pl">+</span></div><div class="faq-a"><div>רק באישור שלך. הכל נוחת קודם בתור האישור. את עורכת, ואז מפרסמת לפייסבוק ואינסטגרם בלחיצה. שום דבר לא עולה מאחורי הגב שלך.</div></div></div>
-      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>הידע של המותג שלי פרטי ושלי?</span><span class="pl">+</span></div><div class="faq-a"><div>כן. בסיס הידע, מסמכי הקול וההיסטוריה - הכל שלך. את יכולה לקרוא, לערוך ולבטל כל מה שהצוות למד, בכל רגע. זו אף פעם לא קופסה שחורה.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>הידע של המותג שלי פרטי ושלי?</span><span class="pl">+</span></div><div class="faq-a"><div>כן. בסיס הידע, שפת המותג וההיסטוריה - הכל שלך. את יכולה לקרוא, לערוך ולבטל כל מה שהצוות למד, בכל רגע. זו אף פעם לא קופסה שחורה.</div></div></div>
       <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>ומה אם ארצה לבטל?</span><span class="pl">+</span></div><div class="faq-a"><div>ביטול בכל רגע, בלי ריטיינר ובלי התחייבות. ניסיון של 14 יום מאפשר לך להריץ שבוע תוכן שלם עם כל הצוות לפני שאת מחליטה.</div></div></div>
     </div>
   </div>
@@ -603,7 +627,7 @@
 <div class="container">
   <div class="final reveal">
     <h2 class="display">תפסיקי להיות כל <span class="it">מחלקת השיווק.</span></h2>
-    <p>תני לצוות שכבר מכיר את הקול שלך לקחת את ההגה. הוא לומד מכל תוצאה, ומופיע כל יום מחדש. את נשארת בעלת העסק - הם עושים את העבודה.</p>
+    <p>תני לצוות שכבר מכיר את הסגנון שלך לקחת את ההגה. הוא לומד מכל תוצאה, ומופיע כל יום מחדש. את נשארת בעלת העסק - הם עושים את העבודה.</p>
     <div class="hero-cta">
       <a href="#pricing" class="btn-primary">גייסי את הצוות — 199 דולר לחודש</a>
       <a href="#team" class="btn-ghost">הכירי שוב את התשעה</a>
