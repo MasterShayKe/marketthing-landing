@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MarketThing — מחלקת השיווק שלך, מבוססת AI</title>
+<meta name="description" content="תשעה מומחי AI. קול מותג אחד. מחלקת שיווק שמייצרת, לומדת ומשתפרת כל שבוע. 199 דולר בחודש + עלות שימוש." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700;900&family=Heebo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --midnight:#070611; --indigo-soft:#1c1947;
+    --purple:#7c5cff; --purple-bright:#9b7dff; --purple-deep:#4a2ec9;
+    --gold:#e6c068; --gold-bright:#f4d98a; --gold-deep:#b8923f;
+    --cream:#f3efe4; --paper:#ece6d6; --muted:#9b97b8; --muted-dim:#6c6889;
+    --line:rgba(230,192,104,.16); --line-purple:rgba(124,92,255,.22);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--midnight);color:var(--cream);font-family:'Heebo',sans-serif;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;word-spacing:.04em}
+  body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60vw 60vw at 88% -5%, rgba(124,92,255,.22), transparent 60%),radial-gradient(55vw 55vw at 5% 8%, rgba(74,46,201,.18), transparent 60%),radial-gradient(70vw 50vw at 50% 110%, rgba(230,192,104,.08), transparent 60%)}
+  body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--midnight)}
+  .display{font-family:'Frank Ruhl Libre',serif;font-weight:600;line-height:1.12}
+  h1,h2,h3,h4{font-family:'Frank Ruhl Libre',serif}
+  .it{color:var(--gold-bright)}
+  .eyebrow{font-family:'Heebo';font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--gold)}
+  .heb{font-family:'JetBrains Mono',monospace;direction:ltr;unicode-bidi:isolate;color:var(--gold);font-weight:500}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(7,6,17,.82), rgba(7,6,17,0));transition:background .3s}
+  nav.scrolled{background:rgba(7,6,17,.88);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'JetBrains Mono';font-weight:600;font-size:1.12rem;direction:ltr}
+  .brand .mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(140deg,var(--purple),var(--purple-deep));box-shadow:0 0 24px rgba(124,92,255,.5), inset 0 0 0 1px rgba(244,217,138,.4);font-family:'JetBrains Mono';font-size:.85rem;color:var(--gold-bright);font-weight:600}
+  .brand b{color:var(--gold-bright);font-weight:700}
+  .logo-mark{width:32px;height:32px;display:block;flex:none;filter:drop-shadow(0 0 10px rgba(230,192,104,.4))}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s;font-weight:500}
+  .nav-links a:hover{color:var(--cream)}
+  .lang-btn{font-family:'JetBrains Mono';font-size:.78rem;font-weight:600;color:var(--gold-bright);border:1px solid var(--line);background:rgba(230,192,104,.07);padding:7px 14px;border-radius:30px;transition:.2s}
+  .lang-btn:hover{background:rgba(230,192,104,.16);border-color:var(--gold)}
+  .nav-cta{padding:9px 18px;border-radius:30px;font-size:.88rem;font-weight:600;color:var(--midnight);background:linear-gradient(120deg,var(--gold-bright),var(--gold));box-shadow:0 6px 22px rgba(230,192,104,.28);transition:transform .2s, box-shadow .2s}
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(230,192,104,.42)}
+  @media(max-width:860px){.nav-links a:not(.nav-cta):not(.lang-btn){display:none}}
+
+  header.hero{position:relative;padding:170px 0 90px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero .eyebrow{opacity:0;animation:rise .8s .1s forwards}
+  .hero h1{font-size:clamp(2.9rem,6.2vw,5rem);margin:22px 0 0;opacity:0;animation:rise .9s .22s forwards;line-height:1.18}
+  .hero h1 .grad{background:linear-gradient(280deg,var(--cream) 20%,var(--purple-bright));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lede{font-size:1.2rem;color:var(--paper);max-width:32em;margin:28px 0 0;line-height:1.75;opacity:0;animation:rise .9s .36s forwards}
+  .hero p.lede b{color:var(--cream);font-weight:700}
+  .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:36px;opacity:0;animation:rise .9s .5s forwards}
+  .btn-primary{padding:15px 32px;border-radius:34px;font-weight:600;font-size:1.02rem;color:var(--midnight);background:linear-gradient(120deg,var(--gold-bright),var(--gold) 70%,var(--gold-deep));box-shadow:0 10px 34px rgba(230,192,104,.34);transition:transform .22s, box-shadow .22s}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(230,192,104,.5)}
+  .btn-ghost{padding:15px 28px;border-radius:34px;font-weight:600;font-size:1.02rem;color:var(--cream);border:1px solid var(--line-purple);background:rgba(124,92,255,.06);transition:.22s}
+  .btn-ghost:hover{background:rgba(124,92,255,.16);border-color:var(--purple)}
+  .price-tag{display:flex;align-items:center;gap:12px;margin-top:26px;opacity:0;animation:rise .9s .64s forwards;flex-wrap:wrap}
+  .price-tag .amt{font-family:'Frank Ruhl Libre';font-size:1.4rem;font-weight:700;color:var(--gold-bright);direction:ltr;unicode-bidi:isolate;white-space:nowrap;padding:7px 16px;border-radius:30px;background:rgba(230,192,104,.08);border:1px solid var(--line)}
+  .price-tag .ptxt{font-size:.94rem;color:var(--muted);line-height:1.5;flex:1 1 220px;min-width:0}
+
+  .console{position:relative;border-radius:22px;opacity:0;animation:rise 1s .55s forwards;background:linear-gradient(160deg,rgba(28,25,71,.92),rgba(12,10,29,.96));border:1px solid var(--line-purple);box-shadow:0 40px 90px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.05), 0 0 60px rgba(124,92,255,.1);overflow:hidden}
+  .console::before{content:'';position:absolute;inset:0;border-radius:22px;padding:1px;background:linear-gradient(220deg,rgba(244,217,138,.35),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .console-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);direction:ltr}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .console-bar .title{margin-inline-start:8px;font-family:'JetBrains Mono';font-size:.74rem;color:var(--muted)}
+  .console-body{padding:20px}
+  .chat-line{display:flex;gap:11px;opacity:0;max-height:0;margin-bottom:0;overflow:hidden}
+  .console.play .chat-line{animation:msgIn .5s ease forwards}
+  @keyframes msgIn{from{opacity:0;max-height:0;margin-bottom:0;transform:translateY(6px)}to{opacity:1;max-height:400px;margin-bottom:16px;transform:none}}
+  .avatar{width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;font-size:.9rem}
+  .av-you{background:rgba(230,192,104,.14);color:var(--gold-bright);border:1px solid var(--line)}
+  .av-mark{background:linear-gradient(140deg,var(--purple),var(--purple-deep));color:var(--gold-bright);box-shadow:0 0 18px rgba(124,92,255,.4)}
+  .av-vera{background:linear-gradient(140deg,#ff6eb4,#7c5cff);color:var(--gold-bright);box-shadow:0 0 18px rgba(255,110,180,.35)}
+  .av-sally{background:linear-gradient(140deg,#e6c068,#7c5cff);color:#0c0a1d;box-shadow:0 0 18px rgba(230,192,104,.35)}
+  .av-neil{background:linear-gradient(140deg,#7fd6ff,#4a2ec9);color:#0c0a1d;box-shadow:0 0 18px rgba(127,214,255,.35)}
+  .av-monica{background:linear-gradient(140deg,#f4d98a,#b8923f);color:#0c0a1d;box-shadow:0 0 18px rgba(230,192,104,.4)}
+  .bubble{font-size:.96rem;line-height:1.6}
+  .bubble .who{display:block;font-family:'Heebo';font-size:.72rem;font-weight:600;color:var(--muted-dim);margin-bottom:3px}
+  .bubble.them{color:var(--paper)}
+  .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .mini-tag{font-family:'Heebo';font-size:.7rem;font-weight:500;padding:3px 9px;border-radius:20px;background:rgba(124,92,255,.14);color:var(--purple-bright);border:1px solid var(--line-purple)}
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:70px}
+  .strip-inner{display:flex;flex-wrap:wrap;gap:14px 48px;justify-content:space-between;padding:26px 0;align-items:center}
+  .strip-item{display:flex;align-items:center;gap:12px}
+  .strip-item .n{font-family:'Frank Ruhl Libre';font-size:1.9rem;font-weight:700;color:var(--gold-bright);line-height:1;direction:ltr}
+  .strip-item .l{font-size:.88rem;color:var(--muted);max-width:15ch;line-height:1.4}
+
+  section{position:relative;padding:108px 0}
+  .sec-head{max-width:44em;margin-bottom:56px}
+  .sec-head h2{font-size:clamp(2.1rem,4.2vw,3.3rem);margin:18px 0 0;line-height:1.22}
+  .sec-head p{color:var(--muted);font-size:1.14rem;margin-top:18px;max-width:38em}
+  .reveal{animation:revealUp .7s ease both}
+  @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.reveal{animation:none}}
+
+  .orchestrator{position:relative;border-radius:22px;padding:34px 36px;margin-bottom:24px;background:linear-gradient(135deg,rgba(74,46,201,.34),rgba(28,25,71,.6));border:1px solid var(--line-purple);display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;box-shadow:0 0 50px rgba(124,92,255,.14), inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+  .orchestrator::after{content:'';position:absolute;top:-40%;inset-inline-end:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(230,192,104,.16),transparent 65%);pointer-events:none}
+  .orch-badge{width:74px;height:74px;border-radius:18px;flex:none;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:1.7rem;font-weight:600;color:var(--gold-bright);background:linear-gradient(140deg,var(--purple),var(--purple-deep));box-shadow:0 0 30px rgba(124,92,255,.5), inset 0 0 0 1px rgba(244,217,138,.35)}
+  .orch-txt h3{font-size:1.6rem;font-weight:600;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .orch-txt h3 .heb{font-size:.95rem}
+  .orch-txt .role{font-family:'Heebo';font-size:.82rem;font-weight:600;color:var(--purple-bright);margin:6px 0 8px}
+  .orch-txt p{color:var(--paper);font-size:1.02rem;max-width:48ch}
+  .orch-flow{font-family:'Heebo';font-size:.84rem;color:var(--muted);text-align:end;line-height:1.9}
+  .orch-flow b{color:var(--gold-bright);direction:ltr;unicode-bidi:isolate;display:inline-block}
+  @media(max-width:760px){.orchestrator{grid-template-columns:1fr;gap:16px}.orch-flow{text-align:start}}
+
+  .agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:980px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.agent-grid{grid-template-columns:1fr}}
+  .agent-card{position:relative;border-radius:16px;padding:24px 22px 22px;background:linear-gradient(165deg,rgba(20,18,53,.7),rgba(12,10,29,.86));border:1px solid rgba(124,92,255,.14);transition:transform .35s cubic-bezier(.2,.7,.3,1), border-color .35s, box-shadow .35s;overflow:hidden;min-height:212px;display:flex;flex-direction:column}
+  .agent-card::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 50% -10%, rgba(124,92,255,.16), transparent 60%);opacity:0;transition:opacity .35s}
+  .agent-card:hover{transform:translateY(-6px);border-color:var(--line);box-shadow:0 24px 50px -24px rgba(0,0,0,.8), 0 0 40px rgba(124,92,255,.16)}
+  .agent-card:hover::before{opacity:1}
+  .agent-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .agent-ava{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;font-size:1.1rem;color:var(--gold-bright);background:rgba(124,92,255,.16);border:1px solid var(--line-purple)}
+  .axis-tag{font-family:'Heebo';font-size:.72rem;font-weight:600;padding:4px 11px;border-radius:20px;border:1px solid var(--line)}
+  .axis-exposure{color:#ff9ecb;background:rgba(255,110,180,.1);border-color:rgba(255,110,180,.25)}
+  .axis-connect{color:#7fd6ff;background:rgba(110,200,255,.1);border-color:rgba(110,200,255,.25)}
+  .axis-sales{color:var(--gold-bright);background:rgba(230,192,104,.1)}
+  .axis-depth{color:var(--purple-bright);background:rgba(124,92,255,.12);border-color:var(--line-purple)}
+  .axis-meta{color:var(--muted);background:rgba(155,151,184,.08)}
+  .agent-card h4{font-size:1.34rem;font-weight:600;display:flex;align-items:baseline;gap:9px}
+  .agent-card h4 .heb{font-size:.82rem}
+  .agent-card .role{font-family:'Heebo';font-size:.78rem;font-weight:600;color:var(--purple-bright);margin:5px 0 11px}
+  .agent-card .desc{font-size:.92rem;color:var(--muted);line-height:1.6;margin-top:auto}
+
+  .loop-section{background:linear-gradient(180deg,transparent, rgba(124,92,255,.05) 40%, transparent)}
+  .loop-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  @media(max-width:920px){.loop-grid{grid-template-columns:1fr;gap:44px}}
+  .loop-step{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:22px 0;position:relative}
+  .loop-step:not(:last-child)::after{content:'';position:absolute;inset-inline-start:21px;top:56px;bottom:-6px;width:1px;background:linear-gradient(var(--line-purple),transparent)}
+  .loop-num{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;color:var(--gold-bright);background:rgba(124,92,255,.12);border:1px solid var(--line-purple);flex:none;z-index:1}
+  .loop-step h4{font-size:1.28rem;font-weight:600;margin-bottom:5px}
+  .loop-step p{font-size:.96rem;color:var(--muted);line-height:1.65}
+  .loop-step p code{font-family:'JetBrains Mono';font-size:.82em;color:var(--purple-bright);background:rgba(124,92,255,.1);padding:1px 6px;border-radius:5px;direction:ltr;unicode-bidi:isolate;display:inline-block}
+  .loop-visual{position:relative;aspect-ratio:1;display:grid;place-items:center}
+  .loop-ring{position:absolute;inset:6%;border-radius:50%;border:1px dashed var(--line-purple);animation:spin 38s linear infinite}
+  .loop-ring.r2{inset:20%;border-color:var(--line);animation-duration:26s;animation-direction:reverse}
+  .loop-ring.r3{inset:34%;border-style:solid;border-color:rgba(124,92,255,.1);animation-duration:18s}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loop-core{position:relative;z-index:2;width:46%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,rgba(74,46,201,.5),rgba(12,10,29,.9));border:1px solid var(--line-purple);box-shadow:0 0 60px rgba(124,92,255,.3), inset 0 0 30px rgba(124,92,255,.2)}
+  .loop-core .core-name{font-family:'Frank Ruhl Libre';font-size:1.7rem;color:var(--gold-bright);font-weight:700}
+  .loop-core small{font-family:'Heebo';font-size:.74rem;color:var(--muted);display:block;margin-top:6px}
+  .node{position:absolute;z-index:3;width:50px;height:50px;border-radius:13px;display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;color:var(--gold-bright);background:linear-gradient(150deg,rgba(28,25,71,.95),rgba(12,10,29,.95));border:1px solid var(--line-purple);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .node.n1{top:2%;left:50%;transform:translateX(-50%)}.node.n2{top:30%;right:1%}.node.n3{bottom:8%;right:14%}.node.n4{bottom:8%;left:14%}.node.n5{top:30%;left:1%}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:880px){.feat-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.feat-grid{grid-template-columns:1fr}}
+  .feat{border-radius:16px;padding:28px 26px;background:linear-gradient(165deg,rgba(20,18,53,.55),rgba(12,10,29,.8));border:1px solid rgba(124,92,255,.13);transition:.32s;position:relative;overflow:hidden}
+  .feat:hover{border-color:var(--line);transform:translateY(-4px)}
+  .feat .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;background:rgba(230,192,104,.1);border:1px solid var(--line)}
+  .feat .ic svg{width:22px;height:22px;stroke:var(--gold-bright);fill:none;stroke-width:1.6}
+  .feat h4{font-size:1.3rem;font-weight:600;margin-bottom:9px}
+  .feat p{font-size:.95rem;color:var(--muted);line-height:1.65}
+
+  .usage-section{background:linear-gradient(180deg,transparent,rgba(230,192,104,.04),transparent)}
+  .usage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}
+  @media(max-width:880px){.usage-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.usage-grid{grid-template-columns:1fr}}
+  .ucard{border-radius:16px;padding:26px 24px;background:linear-gradient(165deg,rgba(28,25,71,.5),rgba(12,10,29,.82));border:1px solid var(--line-purple);position:relative;overflow:hidden}
+  .ucard .num{font-family:'JetBrains Mono';font-size:.68rem;color:var(--gold);letter-spacing:.2em;margin-bottom:14px;direction:ltr;text-align:start}
+  .ucard h4{font-size:1.26rem;font-weight:600;margin-bottom:9px}
+  .ucard p{font-size:.93rem;color:var(--muted);line-height:1.62}
+  .usage-callout{border-radius:16px;padding:28px 30px;background:linear-gradient(135deg,rgba(74,46,201,.22),rgba(28,25,71,.4));border:1px solid var(--line);display:flex;gap:22px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  .usage-callout .big{font-family:'Frank Ruhl Libre';font-size:2.4rem;font-weight:700;color:var(--gold-bright);line-height:1.1}
+  .usage-callout .big .iso{direction:ltr;unicode-bidi:isolate;display:inline-block}
+  .usage-callout .txt{flex:1;min-width:240px}
+  .usage-callout .txt p{color:var(--paper);font-size:1rem}
+  .usage-callout .txt small{color:var(--muted-dim);font-size:.84rem;font-family:'JetBrains Mono';direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+  .ui-shell{border-radius:22px;overflow:hidden;border:1px solid var(--line-purple);background:linear-gradient(160deg,rgba(20,18,53,.9),rgba(8,7,20,.96));box-shadow:0 50px 100px -40px rgba(0,0,0,.85), 0 0 70px rgba(124,92,255,.1)}
+  .ui-tabs{display:flex;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+  .ui-tabs::-webkit-scrollbar{display:none}
+  .ui-tab{flex:none;padding:9px 16px;border-radius:10px;font-size:.9rem;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s;white-space:nowrap;border:1px solid transparent}
+  .ui-tab:hover{color:var(--cream)}
+  .ui-tab.active{color:var(--gold-bright);background:rgba(124,92,255,.12);border-color:var(--line-purple)}
+  .ui-panel{display:none;padding:34px;min-height:300px;animation:fade .4s}
+  .ui-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+  .ui-panel h3{font-size:1.6rem;font-weight:600;margin-bottom:8px}
+  .ui-panel .sub{color:var(--muted);font-size:1rem;margin-bottom:24px;max-width:50em;line-height:1.6}
+  .ui-rows{display:grid;gap:10px}
+  .ui-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:15px 18px;border-radius:12px;background:rgba(124,92,255,.05);border:1px solid rgba(124,92,255,.1)}
+  .ui-row .lead{display:flex;align-items:center;gap:12px}
+  .ui-row .chip{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;font-size:.95rem;color:var(--gold-bright);background:rgba(124,92,255,.16);border:1px solid var(--line-purple);flex:none}
+  .ui-row .t{font-weight:600;font-size:.98rem}
+  .ui-row .d{font-size:.86rem;color:var(--muted)}
+  .pill{font-family:'Heebo';font-size:.74rem;font-weight:500;padding:4px 11px;border-radius:20px;border:1px solid var(--line);white-space:nowrap}
+  .pill-live{color:#7ee0a8;background:rgba(80,220,140,.1);border-color:rgba(80,220,140,.25)}
+  .pill-wait{color:var(--gold-bright);background:rgba(230,192,104,.1)}
+  .pill-run{color:var(--purple-bright);background:rgba(124,92,255,.12);border-color:var(--line-purple)}
+  .usage-bars{display:grid;gap:14px;margin-top:8px}
+  .ubar{display:grid;grid-template-columns:130px 1fr auto;gap:14px;align-items:center}
+  .ubar .name{font-size:.9rem;color:var(--paper)}
+  .ubar .track{height:9px;border-radius:6px;background:rgba(124,92,255,.1);overflow:hidden}
+  .ubar .fill{height:100%;border-radius:6px;background:linear-gradient(270deg,var(--purple),var(--gold))}
+  .ubar .cost{font-family:'JetBrains Mono';font-size:.8rem;color:var(--gold-bright);direction:ltr}
+
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:880px){.tgrid{grid-template-columns:1fr}}
+  .tcard{border-radius:16px;padding:30px 28px;background:linear-gradient(165deg,rgba(20,18,53,.6),rgba(12,10,29,.84));border:1px solid rgba(124,92,255,.14);position:relative}
+  .tcard .quote-mark{font-family:'Frank Ruhl Libre';font-size:3.4rem;line-height:.5;color:var(--purple);opacity:.5;height:24px}
+  .tcard p{font-size:1.04rem;color:var(--paper);line-height:1.7;margin:14px 0 22px}
+  .tcard .who{display:flex;align-items:center;gap:12px}
+  .tcard .who .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:'Frank Ruhl Libre';font-weight:700;color:var(--gold-bright);background:rgba(230,192,104,.12);border:1px solid var(--line)}
+  .tcard .who .nm{font-weight:600;font-size:.96rem}
+  .tcard .who .rl{font-size:.84rem;color:var(--muted)}
+  .tstars{color:var(--gold-bright);font-size:.8rem;letter-spacing:3px;margin-bottom:6px;direction:ltr;text-align:start}
+
+  .price-card{max-width:680px;margin:0 auto;border-radius:26px;overflow:hidden;position:relative;background:linear-gradient(160deg,rgba(28,25,71,.9),rgba(10,8,24,.96));border:1px solid var(--line-purple);box-shadow:0 40px 100px -40px rgba(0,0,0,.85), 0 0 80px rgba(124,92,255,.14)}
+  .price-card::before{content:'';position:absolute;inset:0;padding:1px;border-radius:26px;background:linear-gradient(220deg,rgba(244,217,138,.5),rgba(124,92,255,.3) 40%,transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .price-top{padding:42px 44px 32px;border-bottom:1px solid var(--line);text-align:center;position:relative}
+  .price-top .eyebrow{display:block}
+  .price-amount{display:inline-flex;align-items:baseline;justify-content:center;gap:8px;margin-top:18px;direction:ltr}
+  .price-amount .cur{font-family:'Frank Ruhl Libre';font-size:2rem;color:var(--gold);font-weight:600;align-self:flex-start;margin-top:10px}
+  .price-amount .big{font-family:'Frank Ruhl Libre';font-size:5rem;font-weight:700;line-height:1;background:linear-gradient(120deg,var(--cream),var(--gold-bright));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .price-amount .per{font-size:1rem;color:var(--muted)}
+  .price-plus{margin-top:12px;font-size:1.02rem;color:var(--paper)}
+  .price-plus b{color:var(--gold-bright);font-weight:700}
+  .price-note{font-size:.86rem;color:var(--muted-dim);margin-top:6px;font-family:'Heebo'}
+  .price-list{padding:34px 44px;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  @media(max-width:600px){.price-list{grid-template-columns:1fr}}
+  .price-list li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:.98rem;color:var(--paper)}
+  .price-list .ck{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:rgba(230,192,104,.14);border:1px solid var(--line);margin-top:4px}
+  .price-list .ck svg{width:11px;height:11px;stroke:var(--gold-bright);fill:none;stroke-width:2.4}
+  .price-foot{padding:0 44px 42px;text-align:center}
+  .price-foot .btn-primary{width:100%;display:block;text-align:center}
+  .price-foot small{display:block;margin-top:16px;color:var(--muted-dim);font-size:.86rem}
+
+  .faq-wrap{max-width:760px;margin:0 auto;display:grid;gap:12px}
+  .faq-item{border-radius:14px;border:1px solid rgba(124,92,255,.14);background:linear-gradient(165deg,rgba(20,18,53,.5),rgba(12,10,29,.8));overflow:hidden;transition:border-color .3s}
+  .faq-item.open{border-color:var(--line)}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 26px;cursor:pointer;font-family:'Frank Ruhl Libre';font-size:1.2rem;font-weight:600;color:var(--cream)}
+  .faq-q .pl{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold-bright);font-size:1.2rem;transition:transform .3s;line-height:1}
+  .faq-item.open .faq-q .pl{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--muted);font-size:1rem;line-height:1.7}
+  .faq-a div{padding:0 26px 24px}
+  .faq-item.open .faq-a{max-height:360px}
+
+  .final{text-align:center;padding:120px 0}
+  .final h2{font-size:clamp(2.4rem,5.2vw,4rem);max-width:20ch;margin:0 auto;line-height:1.2}
+  .final p{color:var(--muted);font-size:1.18rem;margin:26px auto 0;max-width:40em;line-height:1.7}
+  .final .hero-cta{justify-content:center;animation:none;opacity:1}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:20px}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  .foot-inner p{font-size:.86rem;color:var(--muted-dim);margin-top:10px}
+  .foot-links{display:flex;gap:24px;font-size:.88rem}
+  .foot-links a{color:var(--muted);transition:.2s}
+  .foot-links a:hover{color:var(--gold-bright)}
+  @media(max-width:720px){
+    section{padding:84px 0}
+    header.hero{padding:132px 0 64px}
+    .hero h1{margin-top:18px}
+    .loop-grid{gap:36px}
+  }
+  @media(max-width:600px){
+    .container{padding:0 18px}
+    nav{padding:12px 16px;gap:10px}
+    .brand{font-size:1rem;gap:9px}
+    .logo-mark{width:28px;height:28px}
+    header.hero{padding:116px 0 54px}
+    .hero p.lede{font-size:1.06rem}
+    .hero-cta{width:100%;gap:10px;margin-top:30px}
+    .hero-cta .btn-primary,.hero-cta .btn-ghost{flex:1 1 150px;text-align:center;padding:14px 16px;font-size:.98rem}
+    .price-tag{margin-top:22px}
+    .strip-inner{gap:18px 26px;padding:24px 0}
+    .strip-item{gap:10px}
+    .strip-item .n{font-size:1.55rem}
+    .strip-item .l{font-size:.82rem}
+    .sec-head{margin-bottom:40px}
+    .sec-head p{font-size:1.06rem}
+    .agent-grid{grid-template-columns:1fr 1fr;gap:12px}
+    .agent-card{min-height:0;padding:18px 15px}
+    .agent-card h4{font-size:1.2rem}
+    .agent-card .desc{font-size:.86rem}
+    .orchestrator{padding:26px 22px}
+    .orch-flow{text-align:start}
+    .feat{padding:24px 22px}
+    .ucard{padding:22px 20px}
+    .ui-panel{padding:22px 16px}
+    .ui-panel h3{font-size:1.38rem}
+    .ui-row{padding:13px 14px}
+    .usage-callout{padding:24px 22px}
+    .usage-callout .big{font-size:2rem}
+    .price-top{padding:34px 24px 26px}
+    .price-amount .big{font-size:4.2rem}
+    .price-list{padding:28px 24px;grid-template-columns:1fr;gap:13px}
+    .price-foot{padding:0 24px 34px}
+    .tcard{padding:26px 22px}
+    .faq-q{padding:18px 20px;font-size:1.1rem}
+    .faq-a div{padding:0 20px 20px}
+    .final{padding:88px 0}
+  }
+  @media(max-width:400px){
+    .agent-grid{grid-template-columns:1fr}
+    .hero-cta .btn-primary,.hero-cta .btn-ghost{flex:1 1 100%}
+  }
+  @media(max-width:600px){
+    section{padding:56px 0}
+    header.hero{padding:108px 0 44px}
+    .sec-head{margin-bottom:30px}
+    .ui-panel{padding:20px 14px;min-height:0}
+    .loop-step{padding:15px 0}
+    .loop-grid{gap:28px}
+    .feat-grid,.usage-grid,.tgrid{gap:12px}
+    .final{padding:58px 0}
+    footer{padding:28px 0}
+  }
+  @media(max-width:400px){
+    section{padding:48px 0}
+    .final{padding:48px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav id="nav">
+  <a href="#top" class="brand"><svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="mtg" x1="6" y1="4" x2="42" y2="45" gradientUnits="userSpaceOnUse"><stop stop-color="#f6dd96"/><stop offset=".5" stop-color="#e6c068"/><stop offset="1" stop-color="#b8923f"/></linearGradient></defs><path d="M24 3.2 41.6 13.6V34.4L24 44.8 6.4 34.4V13.6Z" fill="rgba(124,92,255,.10)" stroke="url(#mtg)" stroke-width="2"/><path d="M13.8 33V18.5L24 26.6 34.2 18.5V33" fill="none" stroke="url(#mtg)" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="round"/><path d="M18.8 13.2 24 8.6 29.2 13.2" fill="none" stroke="url(#mtg)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Market<b>Thing</b></span></a>
+  <div class="nav-links">
+    <a href="#team">הצוות</a>
+    <a href="#loop">איך זה לומד</a>
+    <a href="#console">הקונסולה</a>
+    <a href="#pricing">מחיר</a>
+    <a href="#pricing" class="nav-cta">התחילי ניסיון</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">מחלקת השיווק שלך, מבוססת AI</div>
+      <h1 class="display">תשעה סוכנים.<br><span class="it">קול מותג</span> <span class="grad">אחד.</span></h1>
+      <p class="lede">MarketThing הוא צוות שיווק שלם של מומחי AI - אסטרטגית רילסים, מספרת מכירות, אנליסט, ספרנית ועוד. הם <b>מתכננים, מייצרים, מפרסמים ומשתפרים כל שבוע</b> - ונשמעים בדיוק כמוך.</p>
+      <div class="hero-cta">
+        <a href="#pricing" class="btn-primary">גייסי את הצוות</a>
+        <a href="#team" class="btn-ghost">הכירי את התשעה</a>
+      </div>
+      <div class="price-tag"><span class="amt">$199</span><span class="ptxt">לחודש + עלות שימוש. בלי סוכנות, בלי ריטיינר, בלי לגייס.</span></div>
+    </div>
+
+    <div class="console" aria-hidden="true">
+      <div class="console-bar">
+        <span class="dot" style="background:#ff6058"></span>
+        <span class="dot" style="background:#ffbd2e"></span>
+        <span class="dot" style="background:#28c93f"></span>
+        <span class="title">app.marketthing.io — chat / mark</span>
+      </div>
+      <div class="console-body">
+        <div class="chat-line" style="animation-delay:0.3s"><div class="avatar av-you">A</div><div class="bubble"><span class="who">את</span>אנחנו סוגרות הרבה יותר לקוחות משיחת היכרות מאשר מפוסטים. אפשר להתמקד בזה?</div></div>
+        <div class="chat-line" style="animation-delay:1.6s"><div class="avatar av-mark">M</div><div class="bubble them"><span class="who">מארק · CMO</span>חכם - זה מהלך של אנליטיקה ורילסים. מושך את ניל לנתונים ואת ורה להוק.<div class="tag-row"><span class="mini-tag">ניל + ורה ←</span><span class="mini-tag">ציר: מכירה</span></div></div></div>
+        <div class="chat-line" style="animation-delay:3s"><div class="avatar av-neil">N</div><div class="bubble them"><span class="who">ניל · אנליטיקה</span>מאומת. הרילסים על שיחת ההיכרות ממירים <b style="color:var(--gold-bright)">פי 3.4</b> מרילסים של טיפים - וזווית הפחד של הלקוחה מנצחת בכל פעם.<div class="tag-row"><span class="mini-tag">מתוך 142 רילסים שנותחו</span></div></div></div>
+        <div class="chat-line" style="animation-delay:4.5s"><div class="avatar av-vera">V</div><div class="bubble them"><span class="who">ורה · רילסים</span>אז ההוק כותב את עצמו: <b style="color:var(--gold-bright)">"השיחה של 15 דקות שמשנה איך את רואה את הכסף שלך."</b> כאב קודם, הנעה עדינה להזמנת שיחה.</div></div>
+        <div class="chat-line" style="animation-delay:6s"><div class="avatar av-monica">M</div><div class="bubble them"><span class="who">מוניקה · ידע</span>שמרתי את הזווית המנצחת לבסיס הידע המשותף. מעכשיו כל הצוות פותח איתה.<div class="tag-row"><span class="mini-tag">לולאת למידה · נשמר</span></div></div></div>
+        <div class="chat-line" style="animation-delay:7.4s"><div class="avatar av-mark">M</div><div class="bubble them"><span class="who">מארק · CMO</span>הרילס של ורה בתור האישור. שאבי יבדוק עוד שתי זוויות מבוססות-שיחה ב-A/B בשבוע הבא?<div class="tag-row"><span class="mini-tag">טיוטה אחת בתור</span><span class="mini-tag">2 ניסויים מוכנים</span></div></div></div>
+        <div class="chat-line" style="animation-delay:8.8s"><div class="avatar av-you">A</div><div class="bubble"><span class="who">את</span>כן. בדיוק מה שהייתי צריכה.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="container strip-inner">
+      <div class="strip-item"><span class="n">9</span><span class="l">סוכנים מומחים, מנהל אחד</span></div>
+      <div class="strip-item"><span class="n">1</span><span class="l">קול מותג שלא נשבר</span></div>
+      <div class="strip-item"><span class="n">24/7</span><span class="l">פעיל תמיד, בלי לבקש העלאה</span></div>
+      <div class="strip-item"><span class="n">∞</span><span class="l">לומד מכל הצלחה</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="team">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">הצוות</div>
+      <h2 class="display">צוות שכבר <span class="it">מכיר את המותג שלך</span></h2>
+      <p>כל סוכן קורא את קול המותג שלך, את הכאבים של הקהל, ואת מה שאסור לומר - לפני מילה אחת. לכל אחד תפקיד אחד, והוא עושה אותו כמו מומחה, לא כמו צ׳אטבוט כללי.</p>
+    </div>
+    <div class="orchestrator reveal">
+      <div class="orch-badge">M</div>
+      <div class="orch-txt">
+        <h3>מארק <span class="heb">Mark</span></h3>
+        <div class="role">CMO · מנהל הצוות</div>
+        <p>מנהל השיווק האישי שלך. מתכנן את השבוע, מעביר כל משימה למומחה הנכון, בודק איכות ומדווח. את מדברת עם מארק - הוא מנהל את כל הצוות.</p>
+      </div>
+      <div class="orch-flow">מאציל אל ←<br><b>Vera · Stu · Sally</b><br><b>Phoebe · Dafna</b><br><b>Neil · Avi · Monica</b></div>
+    </div>
+    <div class="agent-grid">
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">V</div><span class="axis-tag axis-exposure">חשיפה</span></div><h4>ורה <span class="heb">Vera</span></h4><div class="role">אסטרטגית רילסים</div><div class="desc">הוקים שעוצרים גלילה. מסר אחד חד. אף פעם לא "עוד רילס" - היא נלחמת על שלוש השניות הראשונות.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">S</div><span class="axis-tag axis-connect">חיבור</span></div><h4>סטו <span class="heb">Stu</span></h4><div class="role">סטורי יומי</div><div class="desc">הופך רגעים מהיום-יום לשרשראות סטורי שגורמות לקהל להרגיש שהוא מכיר אותך - ולחזור מחר.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">S</div><span class="axis-tag axis-sales">מכירה</span></div><h4>סאלי <span class="heb">Sally</span></h4><div class="role">מכירות והשקות</div><div class="desc">שרשראות סטורי שמוכרות. חימום, רצפי השקה, טיפול בהתנגדויות - כאב לפני הצעה, בכל פעם.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">P</div><span class="axis-tag axis-depth">עומק</span></div><h4>פיבי <span class="heb">Phoebe</span></h4><div class="role">תוכן עומק</div><div class="desc">פוסטים עמוקים, מאמרים, תסריטי יוטיוב ופודקאסט - בנויים על סטוריטלינג אמיתי, לא על רשימות.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">D</div><span class="axis-tag axis-depth">עומק · רשת חיה</span></div><h4>דפנה <span class="heb">Dafna</span></h4><div class="role">כותבת בלוג טרנדים</div><div class="desc">סורקת חדשות פיננסיות בזמן אמת, מאמתת כל מספר מול מקור אמיתי, ומעלה טיוטות מוכנות לאישור.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">N</div><span class="axis-tag axis-meta">אנליטיקה</span></div><h4>ניל <span class="heb">Neil</span></h4><div class="role">אנליסט ביצועים</div><div class="desc">קורא את הנתונים ומסביר למה משהו עבד או לא - ואז אומר לצוות מה לעשות בשבוע הבא.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">A</div><span class="axis-tag axis-meta">ניסויים</span></div><h4>אבי <span class="heb">Avi</span></h4><div class="role">ניסויי A/B</div><div class="desc">מתכנן ניסויים עם משתנה בודד והשערה אמיתית. בלי ניחושים - כל וריאציה עונה על שאלה.</div></div>
+      <div class="agent-card reveal"><div class="agent-head"><div class="agent-ava">M</div><span class="axis-tag axis-meta">ידע</span></div><h4>מוניקה <span class="heb">Monica</span></h4><div class="role">ספריית ידע</div><div class="desc">הספרנית של הצוות. מתעדת כל הצלחה, הוכחה וסיפור - ומסדרת אותם למאגר הידע המשותף של כל הצוות.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="loop" class="loop-section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">המנוע שמשתפר מעצמו</div>
+      <h2 class="display">זה לא רק מייצר.<br>זה <span class="it">זוכר ולומד.</span></h2>
+      <p>רוב כלי ה-AI שוכחים אותך ברגע שהצ׳אט נגמר. ב-MarketThing פועלת לולאת למידה חיה: כל מה שסוכן אחד מגלה הופך לידע משותף לכל הצוות - ואת שולטת בכל מה שנכנס.</p>
+    </div>
+    <div class="loop-grid">
+      <div class="loop-steps">
+        <div class="loop-step reveal"><div class="loop-num">01</div><div><h4>סוכן מזהה משהו ששווה לשמור</h4><p>הוק שברור שעבד, הוכחה מלקוחה, מחיר, סיפור. כל סוכן מסמן אותו עם כלי אחד משותף - <code>note_for_monica</code>.</p></div></div>
+        <div class="loop-step reveal"><div class="loop-num">02</div><div><h4>מוניקה מסדרת את זה</h4><p>היא בודקת כפילויות, מתייקת לקטגוריה הנכונה, והופכת הערה חולפת לרשומה נקייה לשימוש חוזר.</p></div></div>
+        <div class="loop-step reveal"><div class="loop-num">03</div><div><h4>כל הצוות לומד את זה - מיד</h4><p>הידע החדש עולה לאוויר ונכנס לתשובה הבאה של כל סוכן רלוונטי. שיעור אחד, מוח משותף.</p></div></div>
+        <div class="loop-step reveal"><div class="loop-num">04</div><div><h4>את נשארת בשליטה</h4><p>כל רשומה שנלמדה מופיעה לך בלשונית "הצוות לימד". שומרת אותה, או מבטלת בלחיצה. שום קופסה שחורה.</p></div></div>
+      </div>
+      <div class="loop-visual reveal" aria-hidden="true">
+        <div class="loop-ring"></div><div class="loop-ring r2"></div><div class="loop-ring r3"></div>
+        <div class="node n1">V</div><div class="node n2">S</div><div class="node n3">D</div><div class="node n4">N</div><div class="node n5">P</div>
+        <div class="loop-core"><div><span class="core-name">מוניקה</span><small>בסיס ידע משותף</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="smarter">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">למה זה משתפר, לא מתיישן</div>
+      <h2 class="display">חמש מערכות שעובדות <span class="it">בזמן שאת ישנה</span></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 14l5 5 11-11"/><path d="M4 8l3 3"/></svg></div><h4>עורך איכות</h4><p>כל טיוטה עוברת ביקורת ותיקון פנימי לפני שהיא מגיעה אלייך. הצוות עורך את עצמו, אז את רואה את הטיוטה השנייה - לא הראשונה.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20v-6m0 0V4m0 10l4-3m-4 3l-4-3"/><circle cx="12" cy="20" r="1.5"/></svg></div><h4>לומד מהעריכות שלך</h4><p>כשאת משנה טיוטה לפני פרסום, המערכת קוראת את ההבדל ומחזירה את הטעם שלך אל הסוכן. הוא לומד איך את אוהבת להישמע.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-8"/><path d="M14 7h7v7"/></svg></div><h4>גלגל התוצאות</h4><p>הרילסים והפוסטים הכי מצליחים שלך נשאבים בחזרה אוטומטית כשיעורים. מה שעבד אתמול מעצב את מה שהצוות כותב מחר.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M7 3h10"/></svg></div><h4>A/B מבוסס השערה</h4><p>אבי לא מייצר "חמש גרסאות דומות". כל ניסוי משנה משתנה אחד כדי לענות על שאלה אחת, וניל מדווח מי ניצח.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/><path d="M9 21h6"/></svg></div><h4>תדריכים יזומים</h4><p>פעם בשבוע מארק עובר על הכל ובא אלייך - מיוזמתו - עם תדריך והצעות קונקרטיות שמחכות בתיבה.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><h4>יסודות שאפשר לערוך</h4><p>קול המותג, הקהל וכללי ה"לא לומר" שלך חיים בעורך שבבעלותך. תשני עיקרון אחד וכל הצוות מציית לו כבר בתור הבא.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="usage" class="usage-section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">מחיר הוגן ומדוד</div>
+      <h2 class="display">ה-199 דולר הם הצוות.<br><span class="it">עלות השימוש</span> היא העבודה שהם עושים.</h2>
+      <p>המנוי נותן לך את כל המחלקה. מעליו, את משלמת רק על החשיבה האמיתית שה-AI עושה - נמדדת בטוקנים, בדיוק כמו שהמנוע שמאחוריו מחייב. בלי ניפוח, בלי תשלום על מושב ריק. הנה בדיוק איך זה עובד.</p>
+    </div>
+    <div class="usage-grid">
+      <div class="ucard reveal"><div class="num">01</div><h4>מה זה טוקן</h4><p>טוקן הוא פיסת טקסט קטנה - בערך כמה תווים - שה-AI קורא וכותב. רילס קצר עולה מעט. מאמר מתוחקר ומאומת עולה יותר. את משלמת על מה שנוצר, ולא יותר.</p></div>
+      <div class="ucard reveal"><div class="num">02</div><h4>נמדד בזמן אמת, לכל סוכן</h4><p>כל שיחה נספרת בזמן אמת ומשויכת לסוכן שעשה את העבודה. לוח השימוש מציג טוקנים ועלות לכל סוכן, לכל יום, כך שתמיד ברור לאן זה הלך.</p></div>
+      <div class="ucard reveal"><div class="num">03</div><h4>כמה רוב העסקים מוציאים</h4><p>מותג סולו שמעלה תוכן יומי בדרך כלל מוציא בערך 30 עד 90 דולר בחודש על טוקנים, מעבר ל-199 דולר. שבועות שקטים עולים פחות. חודש השקה גדול עולה קצת יותר. זה גדל עם הפעילות שלך, לא לפי מדרגה קבועה.</p></div>
+      <div class="ucard reveal"><div class="num">04</div><h4>את קובעת את התקרה</h4><p>קובעת תקציב טוקנים חודשי והקונסולה מתריעה לפני שמגיעים אליו. בלי הפתעות בחשבון - את מחליטה על התקרה, ואת רואה אותה מתמלאת.</p></div>
+    </div>
+    <div class="usage-callout reveal">
+      <div class="big"><span class="iso">$199</span> <span style="font-size:1.1rem;color:var(--muted);font-weight:400">קבוע</span></div>
+      <div class="txt">
+        <p><b style="color:var(--cream)">תשווי לחלופה.</b> העסקת ג׳וניור תוכן היא 8,000 ש"ח ומעלה בחודש. ריטיינר של בוטיק מתחיל בערך ב-5,000 ש"ח. MarketThing הוא צוות של תשעה במחיר של כמה כוסות קפה ביום, ועוד הטוקנים שהוא באמת שורף.</p>
+        <small>// טוקנים מחויבים בעלות הספק, בשקיפות, בלי משחקי תמחור</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="console">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">חדר הבקרה</div>
+      <h2 class="display">הכל ב<span class="it">קונסולה אחת רגועה</span></h2>
+      <p>סביבת עבודה נקייה ובעברית מלאה, בנויה לבעלת עסק עמוסה - לא דשבורד ארגוני. לדבר עם כל סוכן, להריץ קמפיינים, לאשר פוסטים ולעקוב אחרי ההוצאה, הכל ממסך אחד.</p>
+    </div>
+    <div class="ui-shell reveal">
+      <div class="ui-tabs" role="tablist">
+        <div class="ui-tab active" onclick="switchTab(this)" data-tab="campaigns">קמפיינים</div>
+        <div class="ui-tab" onclick="switchTab(this)" data-tab="approval">פוסטים לאישור</div>
+        <div class="ui-tab" onclick="switchTab(this)" data-tab="learned">הצוות לימד</div>
+        <div class="ui-tab" onclick="switchTab(this)" data-tab="experiments">ניסויים</div>
+        <div class="ui-tab" onclick="switchTab(this)" data-tab="usage">שימוש ועלות</div>
+      </div>
+      <div class="ui-panel active" data-panel="campaigns">
+        <h3>זרע אחד, קמפיין שלם</h3>
+        <p class="sub">זורקת רעיון אחד. מארק כותב את הבריף וכל מומחה מייצר את החלק שלו, בשידור חי מולך. שולחת כל חלק ישר לתור האישור.</p>
+        <div class="ui-rows">
+          <div class="ui-row"><div class="lead"><div class="chip">V</div><div><div class="t">רילס · "הפחד שבמספרים"</div><div class="d">ורה · חשיפה · תסריט הוק-קודם</div></div></div><span class="pill pill-live">מוכן</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">S</div><div><div class="t">שרשרת סטורי · חימום יום 1</div><div class="d">סאלי · מכירה · 5 סטוריז</div></div></div><span class="pill pill-live">מוכן</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">P</div><div><div class="t">פוסט ארוך · "למה כסף מפחיד"</div><div class="d">פיבי · עומק · 480 מילים</div></div></div><span class="pill pill-run">כותבת…</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">N</div><div><div class="t">ביקורת על הוק הרילס</div><div class="d">ניל · סימן פתיח חזק יותר</div></div></div><span class="pill pill-wait">הערה</span></div>
+        </div>
+      </div>
+      <div class="ui-panel" data-panel="approval">
+        <h3>שום דבר לא מתפרסם בלעדייך</h3>
+        <p class="sub">הטיוטות מצטברות כאן. עורכת בתוך המסך, ואז מפרסמת לפייסבוק ואינסטגרם בלחיצה. העריכות שלך מלמדות את הסוכן את הטעם שלך בשקט.</p>
+        <div class="ui-rows">
+          <div class="ui-row"><div class="lead"><div class="chip">V</div><div><div class="t">כיתוב רילס · סיפור שיחת לקוחה</div><div class="d">נערך על ידך · 2 שורות שונו</div></div></div><span class="pill pill-wait">ממתין לאישור</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">D</div><div><div class="t">מאמר · "ריבית דריבית, בפשטות"</div><div class="d">טיוטה אוטומטית לבלוג שלך</div></div></div><span class="pill pill-wait">ממתין לאישור</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">S</div><div><div class="t">סטורי · השקה יום 3</div><div class="d">פורסם באינסטגרם · לפני שעתיים</div></div></div><span class="pill pill-live">פורסם</span></div>
+        </div>
+      </div>
+      <div class="ui-panel" data-panel="learned">
+        <h3>תראי את הצוות נעשה חכם יותר</h3>
+        <p class="sub">כל שיעור שהצוות קלט השבוע, בשפה פשוטה. מאשרת את הנכון, מבטלת את מה שלא. המוח בידיים שלך.</p>
+        <div class="ui-rows">
+          <div class="ui-row"><div class="lead"><div class="chip">★</div><div><div class="t">הוקים מבוססי מספר שומרים פי 3</div><div class="d">נלמד מהדוח השבועי של ניל</div></div></div><span class="pill pill-live">חי · ביטול</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">★</div><div><div class="t">הצעה חדשה: אינטנסיב תקציב 1:1 · 890 ש"ח</div><div class="d">נתפס מהצ׳אט שלך על ידי מארק</div></div></div><span class="pill pill-live">חי · ביטול</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">★</div><div><div class="t">הוכחה מלקוחה: "סוף סוף הפסקתי להתחמק"</div><div class="d">תויק על ידי מוניקה · בנק הוכחות</div></div></div><span class="pill pill-live">חי · ביטול</span></div>
+        </div>
+      </div>
+      <div class="ui-panel" data-panel="experiments">
+        <h3>ניסויים עם שאלה אמיתית</h3>
+        <p class="sub">אבי מתכנן אותם, ניל מכריז על המנצח. את רואה את ההשערה, הגרסאות והפסיקה - אף פעם לא הטלת מטבע.</p>
+        <div class="ui-rows">
+          <div class="ui-row"><div class="lead"><div class="chip">A</div><div><div class="t">הוק שאלה מול מספר ספציפי</div><div class="d">השערה: מספרים מעלים שימור ב-15%</div></div></div><span class="pill pill-run">רץ</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">A</div><div><div class="t">דיבור למצלמה מול וויס-אובר</div><div class="d">משתנה בודד · פורמט</div></div></div><span class="pill pill-run">רץ</span></div>
+          <div class="ui-row"><div class="lead"><div class="chip">N</div><div><div class="t">פתיח כאב מול פתיח תקווה</div><div class="d">מנצח: כאב · <span dir="ltr">22%+</span> שמירות</div></div></div><span class="pill pill-live">הוכרע</span></div>
+        </div>
+      </div>
+      <div class="ui-panel" data-panel="usage">
+        <h3>משלמת רק על מה שהוא חושב</h3>
+        <p class="sub">עלות השימוש נמדדת לכל סוכן, לכל שיחה, בזמן אמת. בלי חשבונות מפתיעים - הלוח מראה בדיוק לאן הלכה כל אגורה.</p>
+        <div class="usage-bars">
+          <div class="ubar"><span class="name">ורה · רילסים</span><div class="track"><div class="fill" style="width:78%"></div></div><span class="cost">$14.20</span></div>
+          <div class="ubar"><span class="name">דפנה · בלוג</span><div class="track"><div class="fill" style="width:62%"></div></div><span class="cost">$11.05</span></div>
+          <div class="ubar"><span class="name">סאלי · מכירות</span><div class="track"><div class="fill" style="width:44%"></div></div><span class="cost">$7.80</span></div>
+          <div class="ubar"><span class="name">פיבי · עומק</span><div class="track"><div class="fill" style="width:36%"></div></div><span class="cost">$6.40</span></div>
+          <div class="ubar"><span class="name">מארק + הצוות</span><div class="track"><div class="fill" style="width:28%"></div></div><span class="cost">$4.95</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">בעלי עסקים שהפסיקו לעשות הכל לבד</div>
+      <h2 class="display">איך זה מרגיש <span class="it">לשחרר את ההגה</span></h2>
+    </div>
+    <div class="tgrid">
+      <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>הייתי מאבדת יום שלם בשבוע על תוכן. עכשיו אני מספרת למארק מה קרה לי בשבוע וכל הצוות הופך את זה לרילסים, סטוריז ומאמר. זה באמת נשמע כמוני.</p><div class="who"><div class="av">מ</div><div><div class="nm">מיכל ל.</div><div class="rl">יועצת משכנתאות · מותג סולו</div></div></div></div>
+      <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>לולאת הלמידה היא החלק שאין לאף אחד אחר. תיקנתי טיוטה אחת ושבוע אחרי כל הצוות כבר כתב בדיוק כמו שרציתי. זה מצטבר.</p><div class="who"><div class="av">ר</div><div><div class="nm">רונן ק.</div><div class="rl">מאמן פיננסי</div></div></div></div>
+      <div class="tcard reveal"><div class="quote-mark">”</div><div class="tstars">★★★★★</div><p>קיבלתי הצעה של 6,000 ש"ח בחודש מסוכנות שלא הכירה את הקול שלי. זה חלק קטן מזה, זה אף פעם לא ישן, ואני מאשרת הכל לפני שזה עולה.</p><div class="who"><div class="av">ד</div><div><div class="nm">דנה ש.</div><div class="rl">מנהלת חשבונות ויוצרת קורסים</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 56px">
+      <div class="eyebrow" style="display:block">מחיר אחד פשוט</div>
+      <h2 class="display">מחלקה שלמה במחיר של <span class="it">כמה כוסות קפה ביום</span></h2>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-top">
+        <div class="eyebrow">MarketThing · צוות מלא</div>
+        <div class="price-amount"><span class="cur">$</span><span class="big">199</span><span class="per">/ לחודש</span></div>
+        <div class="price-plus">+ <b>עלות שימוש</b>, נמדדת ושקופה לחלוטין</div>
+        <div class="price-note">// משלמת רק על החשיבה שאת באמת מנצלת</div>
+      </div>
+      <ul class="price-list">
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>כל 9 הסוכנים + המנהל</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>לולאת למידה שמשתפרת מעצמה</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>קמפיינים ותזמור מזרע אחד</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>פרסום ישיר לפייסבוק ואינסטגרם</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>מאמרי בלוג אוטומטיים עם עובדות חיות</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>יסודות מותג שאפשר לערוך</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>ניסויי A/B ודוחות שבועיים</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>לוח שימוש ועלות</li>
+      </ul>
+      <div class="price-foot">
+        <a href="#" class="btn-primary">התחילי ניסיון של 14 יום</a>
+        <small>בלי ריטיינר. בלי מס לפי משתמש. ביטול בכל רגע.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center;margin:0 auto 48px">
+      <div class="eyebrow" style="display:block">לפני שתשאלי</div>
+      <h2 class="display">שאלות? <span class="it">הנה התשובות.</span></h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>אני צריכה להבין בשיווק או ב-AI כדי להשתמש בזה?</span><span class="pl">+</span></div><div class="faq-a"><div>לא. את מדברת עם מארק כמו שהיית מדברת עם מנהל שיווק - בשפה פשוטה, בעברית. הוא מבין מי בצוות צריך לעשות את העבודה ומעביר את זה הלאה. אין צורך בשום הנדסת פרומפטים.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>על מה בדיוק אני משלמת מעבר ל-199 דולר?</span><span class="pl">+</span></div><div class="faq-a"><div>על עלות השימוש - כמות הטקסט שה-AI קורא וכותב כדי לעשות את העבודה שלך, נמדדת בטוקנים. היא מחויבת בעלות הספק בלי תוספות נסתרות, נמדדת בזמן אמת לכל סוכן, ורוב המותגים הסולו מוציאים בערך 30 עד 90 דולר בחודש מעבר למנוי.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>זה באמת יישמע כמוני, או כמו רובוט?</span><span class="pl">+</span></div><div class="faq-a"><div>כמוך. לפני מילה אחת, כל סוכן קורא את קול המותג שלך, את הקהל, ואת כללי ה"לא לומר". ואז הוא לומד מכל עריכה שלך, אז ההתאמה רק מתהדקת עם הזמן.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>זה מפרסם לרשתות שלי לבד?</span><span class="pl">+</span></div><div class="faq-a"><div>רק באישור שלך. הכל נוחת קודם בתור האישור. את עורכת, ואז מפרסמת לפייסבוק ואינסטגרם בלחיצה. שום דבר לא עולה מאחורי הגב שלך.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>הידע של המותג שלי פרטי ושלי?</span><span class="pl">+</span></div><div class="faq-a"><div>כן. בסיס הידע, מסמכי הקול וההיסטוריה - הכל שלך. את יכולה לקרוא, לערוך ולבטל כל מה שהצוות למד, בכל רגע. זו אף פעם לא קופסה שחורה.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>ומה אם ארצה לבטל?</span><span class="pl">+</span></div><div class="faq-a"><div>ביטול בכל רגע, בלי ריטיינר ובלי התחייבות. ניסיון של 14 יום מאפשר לך להריץ שבוע תוכן שלם עם כל הצוות לפני שאת מחליטה.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="final reveal">
+    <h2 class="display">תפסיקי להיות כל <span class="it">מחלקת השיווק.</span></h2>
+    <p>תני לצוות שכבר מכיר את הקול שלך לקחת את ההגה. הוא לומד מכל תוצאה, ומופיע כל יום מחדש. את נשארת בעלת העסק - הם עושים את העבודה.</p>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn-primary">גייסי את הצוות — 199 דולר לחודש</a>
+      <a href="#team" class="btn-ghost">הכירי שוב את התשעה</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container foot-inner">
+    <div>
+      <a href="#top" class="brand"><svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="mtg" x1="6" y1="4" x2="42" y2="45" gradientUnits="userSpaceOnUse"><stop stop-color="#f6dd96"/><stop offset=".5" stop-color="#e6c068"/><stop offset="1" stop-color="#b8923f"/></linearGradient></defs><path d="M24 3.2 41.6 13.6V34.4L24 44.8 6.4 34.4V13.6Z" fill="rgba(124,92,255,.10)" stroke="url(#mtg)" stroke-width="2"/><path d="M13.8 33V18.5L24 26.6 34.2 18.5V33" fill="none" stroke="url(#mtg)" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="round"/><path d="M18.8 13.2 24 8.6 29.2 13.2" fill="none" stroke="url(#mtg)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Market<b>Thing</b></span></a>
+      <p>מחלקת שיווק מבוססת AI שמייצרת, לומדת, ולא ישנה לעולם.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#team">הצוות</a>
+      <a href="#loop">איך זה לומד</a>
+      <a href="#console">הקונסולה</a>
+      <a href="#pricing">מחיר</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+<script>
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+  // Sections reveal via pure CSS animation - no JS needed, so they can never stay hidden.
+  // Chat: start when the console scrolls into view, with a guaranteed fallback timer.
+  const cons = document.querySelector('.console');
+  if (cons){
+    let played = false, timer = null;
+    const play = () => { if (played) return; played = true; cons.classList.add('play'); if (timer) clearInterval(timer); };
+    const inView = () => { const r = cons.getBoundingClientRect(); const h = innerHeight || document.documentElement.clientHeight; return r.top < h * 0.78 && r.bottom > 70; };
+    const tick = () => { if (inView()) play(); };
+    timer = setInterval(tick, 200);          // polling - works on mobile even when scroll events / observers don't fire
+    addEventListener('scroll', tick, { passive: true });
+    addEventListener('resize', tick);
+    tick();
+    setTimeout(play, 9000);                   // last-resort safety so it never stays empty
+  }
+  // Inline onclick="switchTab(this)" / "toggleFaq(this)" in the HTML call these globals.
+  // Inline handlers fire on every browser that runs JS - the most reliable path on mobile.
+  function switchTab(tab){
+    var id = tab.getAttribute('data-tab'), els = document.querySelectorAll('.ui-tab'), i;
+    for (i = 0; i < els.length; i++) els[i].classList.toggle('active', els[i] === tab);
+    var ps = document.querySelectorAll('.ui-panel');
+    for (i = 0; i < ps.length; i++) ps[i].classList.toggle('active', ps[i].getAttribute('data-panel') === id);
+  }
+  function toggleFaq(q){ if (q && q.parentElement) q.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>
